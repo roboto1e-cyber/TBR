@@ -162,7 +162,7 @@ async def gyro_turn(graus):
     global erro, integral, derivada, correcao, erro_final
     global GYRO_TOL, GYRO_MIN, GYRO_MAX
 
-    
+
 
     await redefinir_pid()
 
@@ -261,7 +261,7 @@ async def Gyro_Move(rotacoes, velocidade_final, reverso=False):
         if rot_atual >= abs(rotacoes):
             break
 
-        
+
         erro = ((alvo_heading - LaraZord.imu.heading() + 540) % 360) - 180
 
         if reverso:
@@ -291,7 +291,7 @@ async def Gyro_Move(rotacoes, velocidade_final, reverso=False):
     motoresquerdo.brake()
     motordireito.brake()
 
-    
+
     erro_residual = ((alvo_heading - LaraZord.imu.heading() + 540) % 360) - 180
 
     if abs(erro_residual) > 0.05:
@@ -329,9 +329,9 @@ async def main():
         await gyro_turn(-90)
     await Gyro_Move (0.8, 80, False)
     await gyro_turn(90)
-    await Gyro_Move (2.6, 80, False)
+    await Gyro_Move (2.5, 80, False)
     await gyro_turn(-90)
-    await Gyro_Move (1.4, 80, False)
+    await Gyro_Move (1.3, 80, False)
     await wait (200)
     if await cinza():
         await Gyro_Move(0.5, 80, False)
@@ -342,6 +342,7 @@ async def main():
         await gyro_turn(-90)
     await Gyro_Move(0.3, 80, False)
     await gyro_turn (90)
-    await redefinir
+    zerar_heading_residual(0)
     await Gyro_Move(6.8, 80,False)
+    await gyro_turn(90)
 run_task(main())
